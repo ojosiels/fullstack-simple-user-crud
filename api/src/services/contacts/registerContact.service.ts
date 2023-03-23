@@ -11,21 +11,25 @@ const registerContactService = async (
 ): Promise<IContact> => {
   const contactRepository = AppDataSource.getRepository(Contact);
 
-  const findAlreadyExistingContact = await contactRepository.findOneBy({
+  const findAlreadyExistingContactByEmail = await contactRepository.findOneBy({
     email: contactData.email,
   });
 
-  if (findAlreadyExistingContact) {
+  const findAlreadyExistingContactByPhone = await contactRepository.findOneBy({
+    phone: contactData.phone,
+  });
+
+  if (findAlreadyExistingContactByEmail) {
+    throw new AppError("Contact Already Exists", 409);
+  }
+
+  if (findAlreadyExistingContactByPhone) {
     throw new AppError("Contact Already Exists", 409);
   }
   const clientRepository = AppDataSource.getRepository(Client);
   const findClient = await clientRepository.findOneBy({
     id: clientId,
   });
-
-  if (findAlreadyExistingContact) {
-    throw new AppError("Contact Already Exists", 409);
-  }
 
   if (!findClient) {
     throw new AppError("Client Not Found", 404);
