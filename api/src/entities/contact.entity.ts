@@ -10,7 +10,7 @@ import { Client } from "./client.entity";
 
 @Entity("contacts")
 export class Contact {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn()
   id: string;
 
   @Column()
