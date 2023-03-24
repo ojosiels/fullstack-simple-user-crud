@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
-import api from "../../service/api";
 import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   Heading,
   Stack,
   Text,
-  Image,
-  Button,
   Accordion,
   AccordionItem,
   AccordionButton,
@@ -22,25 +18,15 @@ import {
   TabPanels,
   TabPanel,
 } from "@chakra-ui/react";
-import { ListingPageStyled, StyledList } from "./style";
 
-interface IClient {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  createdAt: Date;
-  contacts: IContact[];
-}
+import { StyledList } from "./style";
 
-interface IContact {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  createdAt: Date;
-  client: IClient;
-}
+import GenericPageStyle from "../../styles/GenericPageStyle";
+
+import api from "../../service/api";
+import { Link } from "react-router-dom";
+
+import { IClient, IContact } from "../../interfaces";
 
 export default () => {
   const [clientsInfo, setClientsInfo] = useState<IClient[]>([]);
@@ -70,21 +56,23 @@ export default () => {
   }, []);
 
   return (
-    <ListingPageStyled>
+    <GenericPageStyle>
       <Tabs variant="unstyled">
         <TabList className="tabNavBar">
           <div>
             <Tab _selected={{ color: "white", bg: "blue.500" }}>Clients</Tab>
-            <Tab _selected={{ color: "white", bg: "green.400" }}>Contacts</Tab>
+            <Tab _selected={{ color: "white", bg: "green.500" }}>Contacts</Tab>
           </div>
-          <Button></Button>
+          <Link to={"/register"} className="linkItem">
+            Registrar
+          </Link>
         </TabList>
         <TabPanels>
           <TabPanel>
             <StyledList>
               {clientsInfo.map((client, id) => {
                 return (
-                  <li>
+                  <li key={id}>
                     <Card direction={{ base: "column", sm: "row" }}>
                       <Stack>
                         <CardHeader>
@@ -127,7 +115,7 @@ export default () => {
             <StyledList>
               {contactsInfo.map((contact, id) => {
                 return (
-                  <li>
+                  <li key={id}>
                     <Card direction={{ base: "column", sm: "row" }}>
                       <Stack>
                         <CardHeader>
@@ -150,6 +138,6 @@ export default () => {
           </TabPanel>
         </TabPanels>
       </Tabs>
-    </ListingPageStyled>
+    </GenericPageStyle>
   );
 };
