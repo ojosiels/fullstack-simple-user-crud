@@ -2,11 +2,7 @@
 
 <section>
 <h2>Api</h2>
-<ol>
-<li><p>Open terminal in the API folder</p></li>
-<li><p>Run <code>npm install</code></p></li>
-<li><p>Run <code>npm run dev</code></p></li>
-</ol>
+<p>Work in Progress</p>
 </section>
 
 <section>
